@@ -7,6 +7,7 @@ use App\Models\ProductVariant;
 use App\Models\ProductVariantPrice;
 use App\Models\Variant;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -16,8 +17,19 @@ class ProductController extends Controller
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function index()
-    {
-        return view('products.index');
+    {   
+        $variants            = Variant::select('id','title')->get();
+        $pvariants           = $this->productVariant();
+        $product             = Product::all();
+        $productVariant      = ProductVariant::all();
+        $productVariantPrice = ProductVariantPrice::all();
+        return view('products.index', compact('variants','pvariants','product','productVariant','productVariantPrice'));
+    }
+
+    function productVariant(){
+        $data = ProductVariant::select('variant_id','variant')->get()->unique('variant');
+        // var_dump($data); die();
+        return $data;
     }
 
     /**
