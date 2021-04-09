@@ -18,7 +18,7 @@ class ProductController extends Controller
      */
     public function index()
     {   
-        $variants            = Variant::all();
+        $variants            = Variant::select('id','title')->get();
         $pvariants           = $this->productVariant();
         $product             = Product::all();
         $productVariant      = ProductVariant::all();
@@ -27,7 +27,9 @@ class ProductController extends Controller
     }
 
     function productVariant(){
-        return DB::table('product_variants')->select('variant','variant_id','id')->get();
+        $data = ProductVariant::select('variant_id','variant')->get()->unique('variant');
+        // var_dump($data); die();
+        return $data;
     }
 
     /**

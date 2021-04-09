@@ -8,7 +8,7 @@
 
 
     <div class="card">
-        <form action="" method="post" class="card-header">
+        <form action="{{URL::to("/filterProduct")}}" method="post" class="card-header">
             @csrf
             <div class="form-row justify-content-between">
                 <div class="col-md-2">
@@ -16,6 +16,7 @@
                 </div>
                 <div class="col-md-2">
                     <select name="variant" id="" class="form-control">
+                        <option value=""> Select One</option>
                         @foreach ($variants as $vitem)
                             <optgroup label="{{ $vitem->title }}">
                                 @foreach ($pvariants as $pitem)
@@ -88,7 +89,6 @@
                                                             / {{$pvitem->variant }}
                                                         @endif
                                                     @endforeach
-                                                    SM/ Red/ V-Nick
                                                 </dt>
                                                 <dd class="col-sm-9">
                                                     <dl class="row mb-0">
